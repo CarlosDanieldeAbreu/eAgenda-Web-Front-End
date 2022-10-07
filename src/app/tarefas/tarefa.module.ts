@@ -5,17 +5,26 @@ import { TarefaRoutingModule } from './tarefa-routing.module';
 import { TarefaAppComponent } from './tarefa-app.component';
 import { TarefaService } from './services/tarefa.service';
 import { ListarTarefaComponent } from './listar/listar-tarefa.component';
+import { InserirTarefaComponent } from './inserir/inserir-tarefa.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { EditarTarefaComponent } from './editar/editar-tarefa.component';
+import { FormsTarefaResolver } from './services/forms-tarefa.resolver';
 
 
 @NgModule({
   declarations: [
     TarefaAppComponent,
-    ListarTarefaComponent
+    ListarTarefaComponent,
+    InserirTarefaComponent,
+    EditarTarefaComponent
   ],
   imports: [
     CommonModule,
-    TarefaRoutingModule
+    TarefaRoutingModule,
+    ReactiveFormsModule,
+    NgSelectModule
   ],
-  providers: [TarefaService]
+  providers: [TarefaService, FormsTarefaResolver]
 })
 export class TarefaModule { }

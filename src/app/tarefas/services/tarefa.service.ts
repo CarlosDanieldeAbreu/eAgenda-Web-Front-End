@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map, catchError, throwError } from 'rxjs';
 import { LocalStorageService } from 'src/app/auth/services/local-storage.service';
 import { environment } from 'src/environments/environment';
+import { FormsTarefaViewModel } from '../view-models/forms-tarefa.view-model';
 import { ListarTarefaViewModel } from '../view-models/listar-tarefa.view-model';
 
 @Injectable({
@@ -16,9 +17,33 @@ export class TarefaService {
     private localStorageService: LocalStorageService
   ) { }
 
+  public inserir(tarefa: FormsTarefaViewModel): Observable<FormsTarefaViewModel> {
+    const resposta = this.http
+      .post<FormsTarefaViewModel>(this.apiUrl + 'tarefas', tarefa, this.obterHeadersAutorizacao())
+      .pipe(map(this.processarDados), catchError(this.processarFalha));
+
+    return resposta;
+  }
+
+  public editar(tarefa: FormsTarefaViewModel): Observable<FormsTarefaViewModel> {
+    const resposta = this.http
+      .put<FormsTarefaViewModel>(this.apiUrl + 'tarefas/' + tarefa.id, tarefa, this.obterHeadersAutorizacao())
+      .pipe(map(this.processarDados), catchError(this.processarFalha));
+
+    return resposta;
+  }
+
   public selecionarTodos(): Observable<ListarTarefaViewModel[]> {
     const resposta = this.http
       .get<ListarTarefaViewModel[]>(this.apiUrl + 'tarefas', this.obterHeadersAutorizacao())
+      .pipe(map(this.processarDados), catchError(this.processarFalha));
+
+    return resposta;
+  }
+
+  public selecionarPorId(id: string): Observable<FormsTarefaViewModel> {
+    const resposta = this.http
+      .get<FormsTarefaViewModel>(this.apiUrl + 'tarefas/' + id, this.obterHeadersAutorizacao())
       .pipe(map(this.processarDados), catchError(this.processarFalha));
 
     return resposta;
