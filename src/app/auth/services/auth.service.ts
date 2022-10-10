@@ -14,7 +14,7 @@ export class AuthService {
 
   public registrarUsuario(registro: RegistrarUsuarioViewModel): Observable<TokenViewModel> {
     const resposta = this.http
-      .post(this.apiUrl + "conta/registrar", registro, this.obterHeaderJson())
+      .post(this.apiUrl + 'conta/registrar', registro, this.obterHeaderJson())
       .pipe(map(this.processarDados), catchError(this.processarFalha));
 
     return resposta;
@@ -24,6 +24,13 @@ export class AuthService {
     const resposta = this.http
       .post(this.apiUrl + 'conta/autenticar', usuario, this.obterHeaderJson())
       .pipe(map(this.processarDados), catchError(this.processarFalha));
+
+    return resposta;
+  }
+
+  public logout() {
+    const resposta = this.http
+      .post(this.apiUrl + 'conta/sair', this.obterHeaderJson());
 
     return resposta;
   }

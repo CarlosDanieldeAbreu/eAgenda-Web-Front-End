@@ -3,7 +3,6 @@ import { TokenViewModel, UsuarioTokenViewModel } from "../view-models/token.view
 
 @Injectable()
 export class LocalStorageService {
-
   public salvarDadosLocaisUsuario(resposta: TokenViewModel): void {
     this.salvarTokenUsuario(resposta.chave);
     this.salvarUsuario(resposta.usuarioToken);
@@ -30,5 +29,10 @@ export class LocalStorageService {
 
   public obterTokenUsuario(): string {
     return localStorage.getItem('eAgenda.token') ?? '';
+  }
+
+  public limparDadosLocais() {
+    localStorage.removeItem('eAgenda.token');
+    localStorage.removeItem('eAgenda.usuario');
   }
 }
