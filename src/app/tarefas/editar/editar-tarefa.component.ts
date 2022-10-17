@@ -101,7 +101,6 @@ export class EditarTarefaComponent implements OnInit {
 
     this.tarefaFormVM = Object.assign({}, this.tarefaFormVM, this.formTarefa.value);
 
-
     this.tarefaService.editar(this.tarefaFormVM)
       .subscribe({
         next: (tarefaEditada) => this.processarSucesso(tarefaEditada),

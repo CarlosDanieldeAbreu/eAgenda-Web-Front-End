@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthModule } from './auth/auth.module';
 import { LoginComponent } from './auth/login/login.component';
 import { RegistroComponent } from './auth/registro/registro.component';
 import { AuthGuard } from './auth/services/auth.guard';
@@ -20,6 +19,11 @@ const routes: Routes = [
     path: 'tarefas',
     loadChildren: () => import('./tarefas/tarefa.module')
       .then(m => m.TarefaModule),
+  },
+  {
+    path: 'contatos',
+    loadChildren: () => import('./contatos/contato.module')
+      .then(m => m.ContatoModule),
   }
 ];
 
